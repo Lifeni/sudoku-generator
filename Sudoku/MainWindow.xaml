@@ -154,7 +154,7 @@
             <Button x:Name="Revoke" Content="撤销" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="52" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0"/>
             <Button x:Name="Delete" Content="删除" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="52" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0"/>
         </Grid>
-        <Grid x:Name="ToolBar" HorizontalAlignment="Center" VerticalAlignment="Top" Height="72" Width="656" Margin="0,20,0,0" Grid.Column="2" Background="#FFF5F5F5">
+        <Grid x:Name="ToolBar" HorizontalAlignment="Center" VerticalAlignment="Top" Height="72" Width="656" Margin="0,18,0,0" Grid.Column="2" Background="#FFF5F5F5">
             <Button x:Name="Export" Content="↓   导出为 CSV" HorizontalAlignment="Right" Margin="0,16,32,16" VerticalAlignment="Center" Height="40" Width="120" FontSize="14" FontWeight="Bold" BorderThickness="0,0,0,0" VerticalContentAlignment="Center">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -176,7 +176,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button x:Name="Import" Content="+   从 CSV 导入" HorizontalAlignment="Left" Margin="32,16,0,16" VerticalAlignment="Center" Height="40" Width="120" FontSize="14" FontWeight="Bold" BorderThickness="0,0,0,0" VerticalContentAlignment="Center">
+            <Button x:Name="Import" Content="+   从 CSV 导入" HorizontalAlignment="Left" Margin="32,16,0,16" VerticalAlignment="Center" Height="40" Width="120" FontSize="14" FontWeight="Bold" BorderThickness="0,0,0,0" VerticalContentAlignment="Center" Click="Import_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#f5f5f5"/>
