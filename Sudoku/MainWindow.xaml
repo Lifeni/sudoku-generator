@@ -119,7 +119,7 @@
             <Border BorderThickness="2" BorderBrush="#FF414141"/>
         </Grid>
         <Grid x:Name="FunctionPanel" HorizontalAlignment="Left" Height="360" VerticalAlignment="Center" Margin="408,72,0,0"  Background="White">
-            <Button x:Name="Generate" Content="生成数独" HorizontalAlignment="Center" Height="52" Margin="0,0,0,0" VerticalAlignment="Top" Width="208" BorderThickness="0,0,0,0" FontSize="18" Foreground="White" FontWeight="Bold" Click="Generate_Click">
+            <Button x:Name="Generate" Content="生成数独" HorizontalAlignment="Center" Height="48" Margin="0,0,0,0" VerticalAlignment="Top" Width="208" BorderThickness="0,0,0,0" FontSize="18" Foreground="White" FontWeight="Bold" Click="Generate_Click" Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#69a7f0"/>
@@ -140,19 +140,40 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Grid x:Name="InputPanel" Width="208" Height="208" Grid.Row="3" Grid.Column="3">
-                <Button x:Name="Input_1" Content="1" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_2" Content="2" Width="64" Height="64" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_3" Content="3" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_4" Content="4" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_5" Content="5" Width="64" Height="64" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_6" Content="6" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_7" Content="7" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_8" Content="8" Width="64" Height="64" HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
-                <Button x:Name="Input_9" Content="9" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
+            <Grid x:Name="InputPanel" Width="208" Height="196" Margin="0,109,0,55">
+                <Button x:Name="Input_1" Content="1" Width="64" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_2" Content="2" Width="64" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_3" Content="3" Width="64" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_4" Content="4" Width="64" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_5" Content="5" Width="64" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_6" Content="6" Width="64" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="144,0,0,0" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_7" Content="7" Width="64" Height="60" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_8" Content="8" Width="64" Height="60" HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
+                <Button x:Name="Input_9" Content="9" Width="64" Height="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
             </Grid>
-            <Button x:Name="Revoke" Content="撤销" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="52" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0"/>
-            <Button x:Name="Delete" Content="删除" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="52" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+            <Button x:Name="Revoke" Content="撤销" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="48" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0" Click="Revoke_Click"/>
+            <Button x:Name="Delete" Content="删除" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="48" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+            <Button x:Name="Solve" Content="求解与验证" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top" Width="208" BorderThickness="0,0,0,0" FontSize="18" Foreground="White" FontWeight="Bold" Click="Solve_Click" Margin="0,54,0,0" Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#66BB6A"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#43A047"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
         <Grid x:Name="ToolBar" HorizontalAlignment="Center" VerticalAlignment="Top" Height="72" Width="656" Margin="0,18,0,0" Grid.Column="2" Background="#FFF5F5F5">
             <Button x:Name="Export" Content="↓   导出为 CSV" HorizontalAlignment="Right" Margin="0,16,32,16" VerticalAlignment="Center" Height="40" Width="120" FontSize="14" FontWeight="Bold" BorderThickness="0,0,0,0" VerticalContentAlignment="Center" Click="Export_Click">

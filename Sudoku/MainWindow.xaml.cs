@@ -7,6 +7,7 @@ using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +27,7 @@ namespace Sudoku
     public partial class MainWindow : Window
     {
         public string[,] sudoku = new string[9, 9];
+        public string[,] history = new string[9, 9];
 
         public MainWindow()
         {
@@ -42,6 +44,7 @@ namespace Sudoku
                 for (int j = 0; j < 9; j++)
                 {
                     sudoku[i, j] = " ";
+                    history[i, j] = " ";
                 }
             }
         }
@@ -62,6 +65,8 @@ namespace Sudoku
                 string[] table = data.Split(new char[] { ',', '\n' });
 
                 int count = 0;
+                Array.Copy(sudoku, history, sudoku.Length);
+
                 for (int i = 0; i < 9; i++)
                 {
                     for (int j = 0; j < 9; j++)
@@ -107,7 +112,7 @@ namespace Sudoku
                         {
                             int x = Int32.Parse(b.Name.Split("_")[1]) - 1;
                             int y = Int32.Parse(b.Name.Split("_")[2]) - 1;
-                            b.Content = sudoku[x, y];
+                            b.Content = sudoku[x, y].Trim();
                         }
                     }
                 }
@@ -152,7 +157,7 @@ namespace Sudoku
                 return arr;
             }
 
-            int[] GetPossibleNumber(string[] row, string[] col, string[] box)
+            static int[] GetPossibleNumber(string[] row, string[] col, string[] box)
             {
                 int[] arr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -234,12 +239,32 @@ namespace Sudoku
                 }
                 return;
             }
+
+        }
+
+        private bool CheckResult()
+        {
+            int count = 0;
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (sudoku[i, j] == " ")
+                        count++;
+                }
+            }
+
+            if (count == 0)
+                return true;
+            return false;
         }
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
-            InitSudoku();
             Status.Text = "正在生成";
+            Array.Copy(sudoku, history, sudoku.Length);
+
+            const int blank = 40;
 
             do
             {
@@ -261,12 +286,36 @@ namespace Sudoku
 
                 SolveSudoku();
 
-                GetText();
-
             } while (sudoku[8, 5] == " ");
 
+            DigHole(blank);
             UpdateTable();
             Status.Text = "已生成数独";
+        }
+
+        private void DigHole(int blank)
+        {
+            int num = blank;
+            do
+            {
+                Random rx = new Random();
+                Random ry = new Random();
+                int x = rx.Next(0, 9);
+                int y = ry.Next(0, 9);
+                if (sudoku[x, y] != " ")
+                {
+                    string[,] copy = new string[9, 9];
+                    Array.Copy(sudoku, copy, sudoku.Length);
+                    sudoku[x, y] = " ";
+                    SolveSudoku();
+                    if (CheckResult())
+                    {
+                        copy[x, y] = " ";
+                        num--;
+                    }
+                    Array.Copy(copy, sudoku, sudoku.Length);
+                }
+            } while (num > 0);
         }
 
         private string GetText()
@@ -307,6 +356,32 @@ namespace Sudoku
                 File.WriteAllText(saveFileDialog.FileName, res);
                 Status.Text = "已保存文件";
             }
+        }
+
+        private void Solve_Click(object sender, RoutedEventArgs e)
+        {
+            Array.Copy(sudoku, history, sudoku.Length);
+
+            SolveSudoku();
+
+            if (!CheckResult())
+            {
+                Status.Text = "求解失败";
+                MessageBox.Show("这个数独可能无解", "求解结果", MessageBoxButton.OK, MessageBoxImage.Error);
+                UpdateTable();
+            }
+            else
+            {
+                UpdateTable();
+                Status.Text = "已尝试求解";
+            }
+        }
+
+        private void Revoke_Click(object sender, RoutedEventArgs e)
+        {
+            Array.Copy(history, sudoku, sudoku.Length);
+            UpdateTable();
+            Status.Text = "已撤销操作";
         }
     }
 }
