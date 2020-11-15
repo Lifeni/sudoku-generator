@@ -63,20 +63,20 @@ namespace Sudoku
                 string[] name = b.Name.Split('_');
                 sudoku[x - 1, y - 1] = name[1];
                 UpdateTable();
-            }
 
-            if (IsFull())
-            {
-                if (IsCorrect())
+                if (IsFull())
                 {
-                    Solve.Content = "重置数独";
-                    Status.Text = "Congratulations!";
-                    MessageBox.Show("你完成了一个数独", "Ok", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    Solve.Content = "求解与验证";
-                    Status.Text = "数独解得不对哦";
+                    if (IsCorrect())
+                    {
+                        Solve.Content = "重置数独";
+                        Status.Text = "Congratulations!";
+                        MessageBox.Show("你完成了一个数独", "Ok", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        Solve.Content = "求解与验证";
+                        Status.Text = "数独解得不对哦";
+                    }
                 }
             }
         }
@@ -361,7 +361,10 @@ namespace Sudoku
                 string[] row = GetRow(i);
                 for (int j = 0; j < 9; j++)
                 {
-                    test.Add(Int32.Parse(row[j]));
+                    if (row[j].Trim() != "")
+                    {
+                        test.Add(Int32.Parse(row[j]));
+                    }
                 }
                 if (test.Count != 9)
                 {
@@ -375,7 +378,10 @@ namespace Sudoku
                 string[] col = GetColumn(i);
                 for (int j = 0; j < 9; j++)
                 {
-                    test.Add(Int32.Parse(col[j]));
+                    if (col[j].Trim() != "")
+                    {
+                        test.Add(Int32.Parse(col[j]));
+                    }
                 }
                 if (test.Count != 9)
                 {
@@ -391,9 +397,77 @@ namespace Sudoku
                     string[] box = GetBox(i, j);
                     for (int k = 0; k < 9; k++)
                     {
-                        test.Add(Int32.Parse(box[k]));
+                        if (box[k].Trim() != "")
+                        {
+                            test.Add(Int32.Parse(box[k]));
+                        }
                     }
                     if (test.Count != 9)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsReasonable()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                HashSet<int> test = new HashSet<int>();
+                string[] row = GetRow(i);
+                int count = 0;
+                for (int j = 0; j < 9; j++)
+                {
+                    if (row[j].Trim() != "")
+                    {
+                        test.Add(Int32.Parse(row[j]));
+                        count++;
+                    }
+                }
+                if (test.Count != count)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                HashSet<int> test = new HashSet<int>();
+                string[] col = GetColumn(i);
+                int count = 0;
+                for (int j = 0; j < 9; j++)
+                {
+                    if (col[j].Trim() != "")
+                    {
+                        test.Add(Int32.Parse(col[j]));
+                        count++;
+                    }
+                }
+                if (test.Count != count)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    HashSet<int> test = new HashSet<int>();
+                    string[] box = GetBox(i, j);
+                    int count = 0;
+                    for (int k = 0; k < 9; k++)
+                    {
+                        if (box[k].Trim() != "")
+                        {
+                            test.Add(Int32.Parse(box[k]));
+                            count++;
+                        }
+                    }
+                    if (test.Count != count)
                     {
                         return false;
                     }
@@ -505,10 +579,14 @@ namespace Sudoku
 
         private void Solve_Click(object sender, RoutedEventArgs e)
         {
-            Array.Copy(sudoku, history, sudoku.Length);
-
-            if (!IsFull() || !IsCorrect())
+            if (!IsReasonable())
             {
+                MessageBox.Show("这个数独可能不合理，因为某一行、列或者九宫格中存在重复的数字。", "Tips", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (!IsFull())
+            {
+                Array.Copy(sudoku, history, sudoku.Length);
+
                 if (isImport)
                 {
                     Array.Copy(first, sudoku, sudoku.Length);
@@ -516,7 +594,7 @@ namespace Sudoku
 
                 SolveSudoku();
 
-                if (!IsFull())
+                if (!IsCorrect())
                 {
                     Status.Text = "求解失败";
                     MessageBox.Show("这个数独可能无解", "求解结果", MessageBoxButton.OK, MessageBoxImage.Error);
