@@ -152,7 +152,7 @@
                 <Button x:Name="Input_9" Content="9" Width="64" Height="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="24" FontWeight="Bold" Margin="0,0,0,0" BorderThickness="0,0,0,0"/>
             </Grid>
             <Button x:Name="Revoke" Content="撤销" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="48" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0" Click="Revoke_Click"/>
-            <Button x:Name="Delete" Content="删除" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="48" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0"/>
+            <Button x:Name="Delete" Content="删除" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="48" Width="100" BorderBrush="#FFE0E0E0" Background="#FFF5F5F5" FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,0" Click="Delete_Click"/>
             <Button x:Name="Solve" Content="求解与验证" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top" Width="208" BorderThickness="0,0,0,0" FontSize="18" Foreground="White" FontWeight="Bold" Click="Solve_Click" Margin="0,54,0,0" Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">

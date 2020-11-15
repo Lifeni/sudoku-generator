@@ -28,13 +28,105 @@ namespace Sudoku
     {
         public string[,] sudoku = new string[9, 9];
         public string[,] history = new string[9, 9];
+        public string[,] first = new string[9, 9];
+        public bool isImport = false;
+        public int x = 0;
+        public int y = 0;
 
         public MainWindow()
         {
             InitializeComponent();
             InitSudoku();
+            InitSudokuButton();
+            InitInputButton();
 
             Status.Text = "准备就绪";
+        }
+
+        private void InitInputButton()
+        {
+            for (int i = 0; i < InputPanel.Children.Count; i++)
+            {
+                if (InputPanel.Children[i] is Button b)
+                {
+                    b.Click += new RoutedEventHandler(OnInputButtonClick);
+                }
+            }
+        }
+
+        private void OnInputButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (x != 0 && y != 0)
+            {
+                Array.Copy(sudoku, history, sudoku.Length);
+                Button b = (Button)sender;
+                string[] name = b.Name.Split('_');
+                sudoku[x - 1, y - 1] = name[1];
+                UpdateTable();
+            }
+
+            if (IsFull())
+            {
+                if (IsCorrect())
+                {
+                    Solve.Content = "重置数独";
+                    Status.Text = "Congratulations!";
+                    MessageBox.Show("你完成了一个数独", "Ok", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    Solve.Content = "求解与验证";
+                    Status.Text = "数独解得不对哦";
+                }
+            }
+        }
+
+        private void InitSudokuButton()
+        {
+            for (int i = 0; i < SudokuPanel.Children.Count; i++)
+            {
+                if (SudokuPanel.Children[i] is Grid g)
+                {
+                    for (int j = 0; j < g.Children.Count; j++)
+                    {
+                        if (g.Children[j] is Button b)
+                        {
+                            b.Click += new RoutedEventHandler(OnSudokuButtonClick);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnSudokuButtonClick(object sender, RoutedEventArgs e)
+        {
+            RemoveAllSudokuButtonStyle();
+            Button b = (Button)sender;
+            b.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBEE6FD"));
+            b.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF424242"));
+
+            string[] name = b.Name.Split('_');
+            x = Int32.Parse(name[1]);
+            y = Int32.Parse(name[2]);
+            Status.Text = $"已选中 [{x},{y}]";
+        }
+
+        private void RemoveAllSudokuButtonStyle()
+        {
+            for (int i = 0; i < SudokuPanel.Children.Count; i++)
+            {
+                if (SudokuPanel.Children[i] is Grid g)
+                {
+                    for (int j = 0; j < g.Children.Count; j++)
+                    {
+                        if (g.Children[j] is Button b)
+                        {
+                            b.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
+                            b.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE0E0E0"));
+                        }
+                    }
+                }
+            }
         }
 
         private void InitSudoku()
@@ -78,6 +170,9 @@ namespace Sudoku
                 }
 
                 UpdateTable();
+                Solve.Content = "求解与验证";
+                Array.Copy(sudoku, first, sudoku.Length);
+                isImport = true;
             }
         }
 
@@ -119,69 +214,69 @@ namespace Sudoku
             }
         }
 
+        private string[] GetRow(int x)
+        {
+            string[] row = new string[9];
+            for (int i = 0; i < 9; i++)
+                row[i] = (sudoku[x, i]);
+
+            return row;
+        }
+
+        private string[] GetColumn(int y)
+        {
+            string[] column = new string[9];
+            for (int i = 0; i < 9; i++)
+                column[i] = (sudoku[i, y]);
+
+            return column;
+        }
+
+        private string[] GetBox(int x, int y)
+        {
+            int dx = (int)(x / 3);
+            int dy = (int)(y / 3);
+
+            string[] arr = new string[9];
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                    arr[i * 3 + j] = (sudoku[i + dx * 3, j + dy * 3]);
+
+            }
+
+            return arr;
+        }
+
+        private static int[] GetPossibleNumber(string[] row, string[] col, string[] box)
+        {
+            int[] arr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (row[i].Trim() != "")
+                    arr[Int32.Parse(row[i]) - 1]++;
+
+                if (col[i].Trim() != "")
+                    arr[Int32.Parse(col[i]) - 1]++;
+
+                if (box[i].Trim() != "")
+                    arr[Int32.Parse(box[i]) - 1]++;
+            }
+
+            ArrayList res = new ArrayList();
+            for (int i = 0; i < 9; i++)
+            {
+                if (arr[i] == 0)
+                    res.Add(i + 1);
+            }
+
+            return (int[])res.ToArray(typeof(int));
+        }
+
         private void SolveSudoku()
         {
             Find(0, 0);
-
-            string[] GetRow(int x)
-            {
-                string[] row = new string[9];
-                for (int i = 0; i < 9; i++)
-                    row[i] = (sudoku[x, i]);
-
-                return row;
-            }
-
-            string[] GetColumn(int y)
-            {
-                string[] column = new string[9];
-                for (int i = 0; i < 9; i++)
-                    column[i] = (sudoku[i, y]);
-
-                return column;
-            }
-
-            string[] GetBox(int x, int y)
-            {
-                int dx = (int)(x / 3);
-                int dy = (int)(y / 3);
-
-                string[] arr = new string[9];
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                        arr[i * 3 + j] = (sudoku[i + dx * 3, j + dy * 3]);
-
-                }
-
-                return arr;
-            }
-
-            static int[] GetPossibleNumber(string[] row, string[] col, string[] box)
-            {
-                int[] arr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-                for (int i = 0; i < 9; i++)
-                {
-                    if (row[i].Trim() != "")
-                        arr[Int32.Parse(row[i]) - 1]++;
-
-                    if (col[i].Trim() != "")
-                        arr[Int32.Parse(col[i]) - 1]++;
-
-                    if (box[i].Trim() != "")
-                        arr[Int32.Parse(box[i]) - 1]++;
-                }
-
-                ArrayList res = new ArrayList();
-                for (int i = 0; i < 9; i++)
-                {
-                    if (arr[i] == 0)
-                        res.Add(i + 1);
-                }
-
-                return (int[])res.ToArray(typeof(int));
-            }
 
             void Find(int x, int y)
             {
@@ -196,7 +291,6 @@ namespace Sudoku
                             string[] col = GetColumn(j);
                             string[] box = GetBox(i, j);
                             int[] result = GetPossibleNumber(row, col, box);
-                            //MessageBox.Show(i + " " + j + " " + String.Join(',', result));
 
                             switch (result.Length)
                             {
@@ -242,14 +336,14 @@ namespace Sudoku
 
         }
 
-        private bool CheckResult()
+        private bool IsFull()
         {
             int count = 0;
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if (sudoku[i, j] == " ")
+                    if (sudoku[i, j].Trim() == "")
                         count++;
                 }
             }
@@ -257,6 +351,56 @@ namespace Sudoku
             if (count == 0)
                 return true;
             return false;
+        }
+
+        private bool IsCorrect()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                HashSet<int> test = new HashSet<int>();
+                string[] row = GetRow(i);
+                for (int j = 0; j < 9; j++)
+                {
+                    test.Add(Int32.Parse(row[j]));
+                }
+                if (test.Count != 9)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                HashSet<int> test = new HashSet<int>();
+                string[] col = GetColumn(i);
+                for (int j = 0; j < 9; j++)
+                {
+                    test.Add(Int32.Parse(col[j]));
+                }
+                if (test.Count != 9)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    HashSet<int> test = new HashSet<int>();
+                    string[] box = GetBox(i, j);
+                    for (int k = 0; k < 9; k++)
+                    {
+                        test.Add(Int32.Parse(box[k]));
+                    }
+                    if (test.Count != 9)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void Generate_Click(object sender, RoutedEventArgs e)
@@ -290,7 +434,9 @@ namespace Sudoku
 
             DigHole(blank);
             UpdateTable();
+            isImport = false;
             Status.Text = "已生成数独";
+            Solve.Content = "求解与验证";
         }
 
         private void DigHole(int blank)
@@ -308,7 +454,7 @@ namespace Sudoku
                     Array.Copy(sudoku, copy, sudoku.Length);
                     sudoku[x, y] = " ";
                     SolveSudoku();
-                    if (CheckResult())
+                    if (IsFull())
                     {
                         copy[x, y] = " ";
                         num--;
@@ -337,7 +483,6 @@ namespace Sudoku
                     res = res + "\n" + row;
             }
 
-            //MessageBox.Show(res);
             return res;
         }
 
@@ -362,18 +507,36 @@ namespace Sudoku
         {
             Array.Copy(sudoku, history, sudoku.Length);
 
-            SolveSudoku();
+            if (!IsFull() || !IsCorrect())
+            {
+                if (isImport)
+                {
+                    Array.Copy(first, sudoku, sudoku.Length);
+                }
 
-            if (!CheckResult())
-            {
-                Status.Text = "求解失败";
-                MessageBox.Show("这个数独可能无解", "求解结果", MessageBoxButton.OK, MessageBoxImage.Error);
-                UpdateTable();
+                SolveSudoku();
+
+                if (!IsFull())
+                {
+                    Status.Text = "求解失败";
+                    MessageBox.Show("这个数独可能无解", "求解结果", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Array.Copy(history, sudoku, sudoku.Length);
+                    UpdateTable();
+                }
+                else
+                {
+                    UpdateTable();
+                    Status.Text = "已尝试求解";
+                    Solve.Content = "重置数独";
+                }
             }
-            else
+            else if (IsCorrect())
             {
+                InitSudoku();
                 UpdateTable();
-                Status.Text = "已尝试求解";
+                isImport = false;
+                Status.Text = "准备就绪";
+                Solve.Content = "求解与验证";
             }
         }
 
@@ -382,6 +545,26 @@ namespace Sudoku
             Array.Copy(history, sudoku, sudoku.Length);
             UpdateTable();
             Status.Text = "已撤销操作";
+            if (!IsFull())
+            {
+                Solve.Content = "求解与验证";
+            }
+            else
+            {
+                Solve.Content = "重置数独";
+            }
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (x != 0 && y != 0 && sudoku[x - 1, y - 1].Trim() != "")
+            {
+                Array.Copy(sudoku, history, sudoku.Length);
+                string num = sudoku[x - 1, y - 1];
+                sudoku[x - 1, y - 1] = "";
+                UpdateTable();
+                Status.Text = $"已删除 [{x - 1},{y - 1}]={num}";
+            }
         }
     }
 }
