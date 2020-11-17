@@ -4,7 +4,7 @@
 
 程序有一个看得过去的用户界面（下面有截图），使用回溯算法对数独求解，第一次用 C#，代码写的比较一般，建议仅用于学习参考。
 
-![主界面](C:\Users\Liang\Desktop\Project\sudoku-generator\主界面.png)
+![主界面](主界面.png)
 
 ## 功能
 
@@ -20,19 +20,19 @@
 
 程序部分截图及功能演示：
 
-![生成与求解](C:\Users\Liang\Desktop\Project\sudoku-generator\生成与求解.gif)
+![生成与求解](生成与求解.gif)
 
-![文件导入](C:\Users\Liang\Desktop\Project\sudoku-generator\文件导入.gif)
+![文件导入](文件导入.gif)
 
-![删除与撤销](C:\Users\Liang\Desktop\Project\sudoku-generator\删除与撤销.gif)
+![删除与撤销](删除与撤销.gif)
 
-![文件导出](C:\Users\Liang\Desktop\Project\sudoku-generator\文件导出.gif)
+![文件导出](文件导出.gif)
 
-![数独无解](C:\Users\Liang\Desktop\Project\sudoku-generator\数独无解.gif)
+![数独无解](数独无解.gif)
 
-![做数独](C:\Users\Liang\Desktop\Project\sudoku-generator\做数独.gif)
+![做数独](做数独.gif)
 
-![设置初盘](C:\Users\Liang\Desktop\Project\sudoku-generator\设置初盘.gif)
+![设置初盘](设置初盘.gif)
 
 ## 兼容性
 
