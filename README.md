@@ -1,4 +1,6 @@
-<img align="center" width="150px"  src="Logo.svg" />
+<p align="center">
+  <img width="150px"  src="Logo.svg" />
+</p>
 
 <h1 align="center">数独生成</h1>
 <p align="center">人工智能课程设计，使用 C#、WPF、.NET Core 制作的数独生成器。</p>
