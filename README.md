@@ -1,9 +1,9 @@
 <p align="center">
-  <img width="150px"  src="Logo.svg" />
+  <img width="150px"  src="Docs/Logo.svg" />
 </p>
 
 <h1 align="center">数独生成</h1>
-<p align="center">人工智能课程设计，使用 C#、WPF、.NET Core 制作的数独生成器。</p>
+<p align="center">人工智能课程设计，使用 C#、WPF、.NET Core 制作的数独生成器</p>
 
 ## 简介
 
@@ -27,23 +27,63 @@
 
 程序部分截图及功能演示：
 
-![主界面](主界面.png)
+<details>
+     <summary>主界面</summary>
 
-下面都是 GIF：
+![主界面](Docs/主界面.png)
 
-![生成与求解](生成与求解.gif)
+</details>
 
-![文件导入](文件导入.gif)
+下面都是 GIF，可以展开查看：
 
-![删除与撤销](删除与撤销.gif)
+<details>
+     <summary>生成与求解</summary>
 
-![文件导出](文件导出.gif)
+![生成与求解](Docs/生成与求解.gif)
 
-![数独无解](数独无解.gif)
+</details>
 
-![做数独](做数独.gif)
+<details>
+     <summary>文件导入</summary>
 
-![设置初盘](设置初盘.gif)
+![文件导入](Docs/文件导入.gif)
+
+</details>
+
+<details>
+     <summary>删除与撤销</summary>
+
+![删除与撤销](Docs/删除与撤销.gif)
+
+</details>
+
+<details>
+     <summary>文件导出</summary>
+
+![文件导出](Docs/文件导出.gif)
+
+</details>
+
+<details>
+     <summary>数独无解</summary>
+
+![数独无解](Docs/数独无解.gif)
+
+</details>
+
+<details>
+     <summary>做数独</summary>
+
+![做数独](Docs/做数独.gif)
+
+</details>
+
+<details>
+     <summary>设置初盘</summary>
+
+![设置初盘](Docs/设置初盘.gif)
+
+</details>
 
 ## 兼容性
 
