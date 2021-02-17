@@ -19,27 +19,27 @@
 
 - 🔩 **生成数独**
 
-    根据算法生成一个有解的数独（不一定只有一个解）。
+  根据算法生成一个有解的数独（不一定只有一个解）。
 
 - ⌛ **求解与验证数独**
 
-    对程序中输入的数独进行求解，如果数独有多个解，则只能求出其中的一个解。
+  对程序中输入的数独进行求解，如果数独有多个解，则只能求出其中的一个解。
 
 - 📁 **导入与导出**
 
-    支持以 CSV 文件为格式的导入与导出。
+  支持以 CSV 文件为格式的导入与导出。
 
 - 🎮 **玩数独**
 
-    支持手动填入数独（正常地进行数独游戏）。
+  支持手动填入数独（正常地进行数独游戏）。
 
-- 📦 **其他功能** 
+- 📦 **其他功能**
 
-    还有一个并不完善的单步撤销的功能。
+  还有一个并不完善的单步撤销的功能。
 
-## 下载
+这个项目已经完成了它的任务（课设），所以可能不会再有新功能了。
 
-课程演示的版本可以在 [Release](https://github.com/Lifeni/sudoku-generator/releases/tag/1.0) 中下载。
+未来如果有时间可能会修一修 Bug 之类的。
 
 ## 截图演示
 
@@ -55,53 +55,59 @@
 下面都是 GIF，可以展开查看：
 
 <details>
-     <summary>生成与求解</summary>
+     <summary>数独的生成与求解</summary>
 
 ![生成与求解](Docs/生成与求解.gif)
 
 </details>
 
 <details>
-     <summary>文件导入</summary>
+     <summary>CSV 文件的导入</summary>
 
 ![文件导入](Docs/文件导入.gif)
 
 </details>
 
 <details>
-     <summary>删除与撤销</summary>
+     <summary>填入数字的删除与撤销</summary>
 
 ![删除与撤销](Docs/删除与撤销.gif)
 
 </details>
 
 <details>
-     <summary>文件导出</summary>
+     <summary>导出为 CSV 文件</summary>
 
 ![文件导出](Docs/文件导出.gif)
 
 </details>
 
 <details>
-     <summary>数独无解</summary>
+     <summary>数独无解的情况</summary>
 
 ![数独无解](Docs/数独无解.gif)
 
 </details>
 
 <details>
-     <summary>做数独</summary>
+     <summary>做数独（手动填入数字后检查结果）</summary>
 
 ![做数独](Docs/做数独.gif)
 
 </details>
 
 <details>
-     <summary>设置初盘</summary>
+     <summary>设置数独的初盘</summary>
 
 ![设置初盘](Docs/设置初盘.gif)
 
 </details>
+
+## 下载
+
+课程演示的版本可以在 [Release](https://github.com/Lifeni/sudoku-generator/releases/tag/1.0) 中下载。
+
+或者可以手动下载源码进行编译，编译需要用到 Visual Studio 2019。
 
 ## 兼容性
 
